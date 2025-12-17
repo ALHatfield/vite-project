@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import LogoAnimator from './components/LogoAnimator'; 
+
 
 let outsideVar = 0;
 
@@ -20,6 +20,7 @@ function App() {
   console.group("App");
   console.count();
   console.log(hostRef)
+  console.log(viteLogo)
   console.groupEnd();
 
 
@@ -31,36 +32,24 @@ function App() {
 
   },[count])
 
-  /////////////////////////////////////////
-  useGSAP(function handleLogoIdle() {
-    const tl = gsap.timeline();
-    tl.add("start", 0.0)
-    // tl.to(".logo.react", { ease: "none", duration: 20, rotate: 360, repeat: -1 }, "start")
-    tl.to(".logo", { ease: "back.inOut", duration: 4, scale: "+=0.1", repeat: -1, yoyo: true }, "start")
-    // tl.fromTo(".logo", 
-    //   { ease: "back.inOut", rotate: -10 },
-    //   { ease: "back.inOut", duration: 6, rotate: 10, repeat: -1, yoyo: true },
-    //    "start")
-
-  }, [])
-  
-  useGSAP(function handleLogoAnimate() {
-    if (count !== 0) gsap.to(".logo", { ease: "back.out", duration: 0.5, scale: "+=0.5" })
-    if (count % 4 === 0) gsap.to(".logo", { ease: "back.out", duration: 0.5, scale: "1.0" })
-  }, [count])
-  
-
   //////////////////////////////////////////
 
   return (
     <main ref={hostRef}>
       <div>
+        <LogoAnimator logo={[ viteLogo, reactLogo ]} count={count} />
+        
+{/* 
+
         <a href="https://vite.dev" target="_blank">
           <img ref={viteLogoRef} src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        </a> */}
+
+
+
       </div>
       <h1>Vite + React</h1>
       <div className="card">
