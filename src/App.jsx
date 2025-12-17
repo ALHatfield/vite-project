@@ -8,7 +8,9 @@ import { useGSAP } from '@gsap/react';
 let outsideVar = 0;
 
 
-
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,7 +24,7 @@ function App() {
 
 
   useEffect(() => {
-    gsap.to(".logo.react", { ease: "none", duration: 20, rotate: 360, repeat: -1 })
+    
   },[])
 
   useEffect(() => {
@@ -30,9 +32,19 @@ function App() {
   },[count])
 
   /////////////////////////////////////////
-  let scaleRef = useRef(0);
+  useGSAP(function handleLogoIdle() {
+    const tl = gsap.timeline();
+    tl.add("start", 0.0)
+    // tl.to(".logo.react", { ease: "none", duration: 20, rotate: 360, repeat: -1 }, "start")
+    tl.to(".logo", { ease: "back.inOut", duration: 4, scale: "+=0.1", repeat: -1, yoyo: true }, "start")
+    // tl.fromTo(".logo", 
+    //   { ease: "back.inOut", rotate: -10 },
+    //   { ease: "back.inOut", duration: 6, rotate: 10, repeat: -1, yoyo: true },
+    //    "start")
+
+  }, [])
   
-  useGSAP(() => {
+  useGSAP(function handleLogoAnimate() {
     if (count !== 0) gsap.to(".logo", { ease: "back.out", duration: 0.5, scale: "+=0.5" })
     if (count % 4 === 0) gsap.to(".logo", { ease: "back.out", duration: 0.5, scale: "1.0" })
   }, [count])
