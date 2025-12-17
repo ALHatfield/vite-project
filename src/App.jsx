@@ -8,6 +8,8 @@ import { useGSAP } from '@gsap/react';
 let outsideVar = 0;
 
 
+
+
 function App() {
   const [count, setCount] = useState(0);
   const hostRef = useRef(null);
@@ -19,10 +21,8 @@ function App() {
   console.groupEnd();
 
 
-
-
   useEffect(() => {
-    
+    gsap.to(".logo.react", { ease: "none", duration: 20, rotate: 360, repeat: -1 })
   },[])
 
   useEffect(() => {
@@ -33,8 +33,8 @@ function App() {
   let scaleRef = useRef(0);
   
   useGSAP(() => {
-    scaleRef += 0.5;
-    // gsap.to(".logo", { duration: 0.25, scale: scaleRef })
+    if (count !== 0) gsap.to(".logo", { ease: "back.out", duration: 0.5, scale: "+=0.5" })
+    if (count % 4 === 0) gsap.to(".logo", { ease: "back.out", duration: 0.5, scale: "1.0" })
   }, [count])
   
 
